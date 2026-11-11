@@ -65,6 +65,25 @@ public class ReservationTests
         Assert.Equal(DomainErrorCode.InvalidIdempotencyKey, exception.Code);
     }
 
+    [Fact]
+    public void Constructor_WithIdempotencyKeyOf100Characters_CreatesReservation()
+    {
+        var idempotencyKey = new string('k', 100);
+
+        var reservation = CreateReservation(idempotencyKey: idempotencyKey);
+
+        Assert.Equal(idempotencyKey, reservation.IdempotencyKey);
+    }
+
+    [Fact]
+    public void Constructor_WithIdempotencyKeyLongerThan100Characters_ThrowsInvalidIdempotencyKey()
+    {
+        var exception = Assert.Throws<DomainException>(
+            () => CreateReservation(idempotencyKey: new string('k', 101)));
+
+        Assert.Equal(DomainErrorCode.InvalidIdempotencyKey, exception.Code);
+    }
+
     [Theory]
     [InlineData(CustomerType.Regular, 0, 4)]
     [InlineData(CustomerType.Regular, 2, 2)]

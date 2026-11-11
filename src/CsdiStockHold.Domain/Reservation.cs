@@ -2,6 +2,8 @@ namespace CsdiStockHold.Domain;
 
 public sealed class Reservation
 {
+    public const int MaxIdempotencyKeyLength = 100;
+
     /// <summary>
     /// Creates a reservation after checking the business rules of the specification.
     /// </summary>
@@ -30,6 +32,13 @@ public sealed class Reservation
                 "Idempotency key is required.");
         }
 
+        if (idempotencyKey.Length > MaxIdempotencyKeyLength)
+        {
+            throw new DomainException(
+                DomainErrorCode.InvalidIdempotencyKey,
+                $"Idempotency key cannot be longer than {MaxIdempotencyKeyLength} characters.");
+        }
+
         // Written as a subtraction so a very large quantity cannot overflow the check.
         if (quantity > customer.MaxReservableUnits - customerActiveReservedQuantity)
         {
@@ -54,6 +63,12 @@ public sealed class Reservation
         IdempotencyKey = idempotencyKey;
         CreatedAt = now;
         ExpiresAt = now + customer.ReservationDuration;
+    }
+
+    // Used only by EF Core to load reservations from the database.
+    private Reservation()
+    {
+        IdempotencyKey = string.Empty;
     }
 
     public Guid Id { get; private set; }

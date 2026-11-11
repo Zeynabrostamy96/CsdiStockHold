@@ -26,6 +26,24 @@ public class ProductTests
         Assert.Equal(DomainErrorCode.InvalidProductName, exception.Code);
     }
 
+    [Fact]
+    public void Constructor_WithNameOf200Characters_CreatesProduct()
+    {
+        var name = new string('a', 200);
+
+        var product = new Product(name, 10);
+
+        Assert.Equal(name, product.Name);
+    }
+
+    [Fact]
+    public void Constructor_WithNameLongerThan200Characters_ThrowsInvalidProductName()
+    {
+        var exception = Assert.Throws<DomainException>(() => new Product(new string('a', 201), 10));
+
+        Assert.Equal(DomainErrorCode.InvalidProductName, exception.Code);
+    }
+
     [Theory]
     [InlineData(-1)]
     [InlineData(-100)]

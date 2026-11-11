@@ -2,6 +2,8 @@ namespace CsdiStockHold.Domain;
 
 public sealed class Product
 {
+    public const int MaxNameLength = 200;
+
     public Product(string name, int stockQuantity)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -9,6 +11,13 @@ public sealed class Product
             throw new DomainException(
                 DomainErrorCode.InvalidProductName,
                 "Product name is required.");
+        }
+
+        if (name.Length > MaxNameLength)
+        {
+            throw new DomainException(
+                DomainErrorCode.InvalidProductName,
+                $"Product name cannot be longer than {MaxNameLength} characters.");
         }
 
         if (stockQuantity < 0)
