@@ -1,0 +1,29 @@
+<Project>
+
+  <!--
+    Shared build settings for every project in this repository.
+    Per-project settings (TargetFramework, Nullable, ImplicitUsings, ...) stay in each .csproj.
+  -->
+
+  <PropertyGroup>
+    <!-- Any compiler or analyzer warning fails the build. -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <!--
+      NuGet audit diagnostics stay visible as warnings but never fail the build, so a
+      vulnerability published after submission, or an unreachable audit source, cannot
+      break someone else's build:
+        NU1900       audit source could not be reached
+        NU1901-1904  low / moderate / high / critical vulnerability
+        NU1905       audit source provides no vulnerability data
+    -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1900;NU1901;NU1902;NU1903;NU1904;NU1905</WarningsNotAsErrors>
+
+    <!-- Pin the analyzer rule set so a newer 10.0.x SDK cannot introduce new warnings. -->
+    <AnalysisLevel>10.0</AnalysisLevel>
+
+    <!-- Report .editorconfig code-style rules with warning severity during build, not only in the IDE. -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+</Project>
