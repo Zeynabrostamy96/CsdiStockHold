@@ -1,0 +1,138 @@
+# =====================================================================
+# .gitignore for .NET / Visual Studio projects - CsdiStockHold
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# 1) Build output
+# ---------------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+/artifacts/
+[Pp]ublish/
+*.binlog
+
+# NuGet packages (restored automatically, so they are not stored in the repo)
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+
+# ---------------------------------------------------------------------
+# 2) Visual Studio: user-specific files
+# ---------------------------------------------------------------------
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.userprefs
+
+# ---------------------------------------------------------------------
+# 3) Other IDEs and tools (Rider, ReSharper, VS Code)
+# ---------------------------------------------------------------------
+.idea/
+_ReSharper*/
+*.DotSettings.user
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ---------------------------------------------------------------------
+# 4) IDE temp and cache files
+# ---------------------------------------------------------------------
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.cache
+!?*.cache/
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.VC.opendb
+*.vspscc
+*.vssscc
+*.pidb
+*.svclog
+*.scc
+*.log
+
+# ---------------------------------------------------------------------
+# 5) Tests, coverage and profiling
+# ---------------------------------------------------------------------
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+*.psess
+*.vsp
+*.vspx
+*.sap
+BenchmarkDotNet.Artifacts/
+
+# ---------------------------------------------------------------------
+# 6) Local settings and secrets
+#    The base appsettings.json IS committed; it must not contain real secrets.
+#    For real values use `dotnet user-secrets` or appsettings.Local.json.
+# ---------------------------------------------------------------------
+appsettings.Local.json
+appsettings.*.Local.json
+secrets.json
+*.secrets.json
+
+# Publish profiles (may contain server addresses and credentials)
+*.pubxml
+*.pubxml.user
+*.publishproj
+*.publishsettings
+PublishScripts/
+
+# Certificates and private keys
+*.pfx
+*.p12
+*.pem
+*.key
+
+# Local database files (LocalDB / SQL Server)
+*.mdf
+*.ldf
+*.ndf
+
+# ---------------------------------------------------------------------
+# 7) Environment files
+#    .env.example (with no real values) stays in the repo as a template.
+# ---------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# ---------------------------------------------------------------------
+# 8) Front-end packages
+# ---------------------------------------------------------------------
+node_modules/
+
+# ---------------------------------------------------------------------
+# 9) Operating system and editor files
+# ---------------------------------------------------------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+*~
+~$*
+*.swp
+*.bak
