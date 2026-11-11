@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CsdiStockHold.Api/CsdiStockHold.Api.csproj" />
+    <Project Path="src/CsdiStockHold.Domain/CsdiStockHold.Domain.csproj" />
+    <Project Path="src/CsdiStockHold.Infrastructure/CsdiStockHold.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CsdiStockHold.Tests/CsdiStockHold.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,6 @@
+@CsdiStockHold.Api_HostAddress = http://localhost:5104
+
+GET {{CsdiStockHold.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
