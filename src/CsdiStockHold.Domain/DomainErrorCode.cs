@@ -5,4 +5,8 @@ public enum DomainErrorCode
     InvalidCustomerType,
     InvalidProductName,
     InvalidStockQuantity,
+    InvalidQuantity,
+    InvalidIdempotencyKey,
+    CustomerLimitExceeded,
+    InsufficientStock,
 }
