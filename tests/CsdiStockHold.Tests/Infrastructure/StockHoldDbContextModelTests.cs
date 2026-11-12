@@ -102,6 +102,17 @@ public class StockHoldDbContextModelTests
         Assert.Equal("Quantity", Assert.Single(index.GetIncludeProperties()!));
     }
 
+    [Fact]
+    public void Migrations_ContainInitialCreateAndMatchTheModel()
+    {
+        using var context = CreateContext();
+
+        Assert.Contains(
+            context.Database.GetMigrations(),
+            migration => migration.EndsWith("_InitialCreate", StringComparison.Ordinal));
+        Assert.False(context.Database.HasPendingModelChanges());
+    }
+
     private static StockHoldDbContext CreateContext() =>
         new(new DbContextOptionsBuilder<StockHoldDbContext>().UseSqlServer().Options);
 
