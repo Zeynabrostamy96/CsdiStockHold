@@ -45,6 +45,7 @@ app.UseHttpsRedirection();
 
 app.MapProductEndpoints();
 app.MapCustomerEndpoints();
+app.MapReservationEndpoints();
 
 app.Run();
 
