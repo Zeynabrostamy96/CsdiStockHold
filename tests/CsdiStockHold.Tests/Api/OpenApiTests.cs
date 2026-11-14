@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CsdiStockHold.Tests.Api;
 
@@ -71,6 +72,34 @@ public class OpenApiTests(ApiFactory factory) : IClassFixture<ApiFactory>
             .GetProperty("CustomerType").GetProperty("enum").EnumerateArray().Select(value => value.GetString());
 
         Assert.Equal(["Regular", "Special"], customerTypes);
+    }
+
+    [Fact]
+    public async Task SwaggerUi_IsServedAndPointsToTheOpenApiDocument()
+    {
+        using var client = factory.CreateClient();
+
+        var response = await client.GetAsync("/swagger/index.html");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal("text/html", response.Content.Headers.ContentType?.MediaType);
+
+        // The page loads its settings, which name the OpenAPI document, from index.js.
+        var settings = await client.GetStringAsync("/swagger/index.js");
+        Assert.Contains("/openapi/v1.json", settings);
+    }
+
+    [Theory]
+    [InlineData("/openapi/v1.json")]
+    [InlineData("/swagger/index.html")]
+    public async Task OpenApiDocumentAndSwaggerUi_AreAlsoAvailableOutsideDevelopment(string path)
+    {
+        using var production = factory.WithWebHostBuilder(builder => builder.UseEnvironment("Production"));
+        using var client = production.CreateClient();
+
+        var response = await client.GetAsync(path);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     private async Task<JsonDocument> GetDocumentAsync()

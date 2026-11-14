@@ -35,11 +35,10 @@ var app = builder.Build();
 app.UseExceptionHandler();
 app.UseStatusCodePages();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+// The OpenAPI document and Swagger UI are available in every environment, so the API can always be
+// viewed and tried out at /swagger.
+app.MapOpenApi();
+app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "CsdiStockHold API v1"));
 
 app.UseHttpsRedirection();
 
