@@ -9,4 +9,7 @@ public enum DomainErrorCode
     InvalidIdempotencyKey,
     CustomerLimitExceeded,
     InsufficientStock,
+    CustomerNotFound,
+    ProductNotFound,
+    IdempotencyKeyConflict,
 }
