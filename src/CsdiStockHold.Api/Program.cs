@@ -40,3 +40,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.Run();
+
+// Makes the entry point visible to the tests, which host the application in memory.
+public partial class Program;
