@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using CsdiStockHold.Api;
+using CsdiStockHold.Api.Endpoints;
 using CsdiStockHold.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,9 @@ builder.Services.AddExceptionHandler<DomainExceptionHandler>();
 builder.Services.AddDbContext<StockHoldDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("StockHold")));
 
+builder.Services.AddSingleton(TimeProvider.System);
+builder.Services.AddScoped<ReservationService>();
+
 var app = builder.Build();
 
 app.UseExceptionHandler();
@@ -38,6 +42,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapProductEndpoints();
 
 app.Run();
 
