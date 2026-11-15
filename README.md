@@ -54,7 +54,9 @@ export ConnectionStrings__StockHold="<your SQL Server connection string>"
 ```
 
 It must point to the database of step 1. A local server with a self-signed certificate may need `TrustServerCertificate=True` in the connection string.
-You can also put the value in `src/CsdiStockHold.Api/appsettings.Development.json`; do not commit it.
+Instead of the environment variable you can keep it outside the repository with user secrets, which the Development environment (Visual Studio, `dotnet run`) reads automatically:
+`dotnet user-secrets set "ConnectionStrings:StockHold" "<connection string>" --project src/CsdiStockHold.Api`. Remove it again with `dotnet user-secrets clear --project src/CsdiStockHold.Api`.
+Do not put the value in `appsettings*.json` or `launchSettings.json`: these files are committed.
 
 ### 3. Run
 
@@ -64,7 +66,7 @@ dotnet run --project src/CsdiStockHold.Api
 
 The API listens on <http://localhost:5104>. `--launch-profile https` also serves <https://localhost:7252>, which needs the ASP.NET Core development certificate (`dotnet dev-certs https --trust`).
 
-- Swagger UI, to view and try the API: `/swagger`
+- Swagger UI, to view and try the API: <http://localhost:5104/swagger> (the launch profiles open it in the browser; the root address `/` has no page)
 - OpenAPI document: `/openapi/v1.json`
 
 Without a connection string the application still starts and Swagger works, but every endpoint that needs the database answers 500.
